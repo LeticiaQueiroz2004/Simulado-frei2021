@@ -257,10 +257,19 @@ const Container = styled.div`
         background-color: #fff;
     }
 
+    .coluna-acao > button {
+        visibility: hidden;
+    }
+
     .coluna-acao {
         width: .1em;
     }
 
+    tr:hover {
+        .coluna-acao > button {
+            visibility: visible;
+        } 
+    }
     button {
         cursor: pointer;
     }
