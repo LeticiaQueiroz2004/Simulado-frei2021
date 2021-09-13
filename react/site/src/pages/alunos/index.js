@@ -20,6 +20,10 @@ const api = new Api();
 
 export default function Index() {
 
+    const ref = useRef(null)
+    const loading = useRef(null); 
+
+
     const [ alunos, setAlunos] = useState([]);
     const [ nome, setNome] = useState('');
     const [ chamada, setChamada] = useState('');
@@ -108,7 +112,8 @@ export default function Index() {
         listar();
     }, [])
 
-  const ref = useRef(null)
+   
+  
     return (
         <Container>
             <LoadingBar color='#f11946' ref={ref} />
