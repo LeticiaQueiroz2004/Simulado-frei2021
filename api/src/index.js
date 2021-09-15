@@ -21,6 +21,10 @@ app.post('/matricula', async (req, resp) => {
     try{ 
         let { nome, chamada, curso, turma } = req.body;
         
+        let alunoexistente = await db.tb_matricula.findOne({ where: { nm_aluno: nome, nm_turma: turma } })
+        if(alunoexistente != null)
+            return resp.send({ erro: 'Aluno já cadastrado no sistema' })
+
         let r = await db.tb_matricula.create({
             nm_aluno: nome,
             nr_chamada: chamada,

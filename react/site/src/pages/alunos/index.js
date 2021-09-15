@@ -32,11 +32,16 @@ export default function Index() {
     const [ idAlterando, setIdAlterando] = useState(0);
 
     async function listar() {
+        loading.current.continuousStart();
+        
         let r = await api.listar();
         setAlunos(r);
+
+        loading.current.complete();  
     }
 
     async function inserir() {
+        loading.current.continuousStart();
         if (chamada == null || chamada <= 0) 
         {
             toast.error('😬 Número de chamada inválido!')
@@ -62,7 +67,8 @@ export default function Index() {
             }
 
         }
-
+        
+        loading.current.complete();
         limparCampos();
         listar();
     }
@@ -116,7 +122,7 @@ export default function Index() {
   
     return (
         <Container>
-            <LoadingBar color='#f11946' ref={ref} />
+            <LoadingBar color='#aa3997' ref={loading} />
             <ToastContainer/>
             <Menu />
             <Conteudo>
@@ -180,7 +186,9 @@ export default function Index() {
 
                                     <tr className={ i % 2 == 0 ? "linha-alternada" : "" }>
                                         <td> {item.id_matricula} </td>
-                                        <td> {item.nm_aluno != null && item.nm_aluno.length >= 25 ? item.nm_aluno.substr(0, 25) + '...' : item.nm_aluno} </td>
+                                        <td  title={item.nm_aluno != null && item.nm_aluno.length >= 25 ?item.nm_aluno : ''}> 
+                                            {item.nm_aluno != null && item.nm_aluno.length >= 25 ? item.nm_aluno.substr(0, 25) + '...' : item.nm_aluno} 
+                                        </td>
                                         <td> {item.nr_chamada} </td>
                                         <td> {item.nm_turma} </td>
                                         <td> {item.nm_curso} </td>
